@@ -4,37 +4,50 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Tienda en L&iacute;nea</title>
             </f:facet>
+            <!-- Le styles -->
+            <h:outputStylesheet name="css/bootstrap.min.css" />
+            <h:outputStylesheet name="css/bootstrap-theme.min.css" />
+            <h:outputStylesheet name="css/style.css" />
+            <!-- Scripts -->
+            <h:outputScript name="js/jquery-3.1.0.min.js" />
+            <h:outputScript name="js/bootstrap.min.js" />
         </h:head>
-
         <h:body>
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/ControlAcademico/public/">
+                            <h:graphicImage name="img/zf-logo-mark.svg" style="max-height: 30px;" />
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="#">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container">
+                <ui:insert name="content">Content</ui:insert>
 
-            <p:layout fullPage="true">
-
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                </p:layoutUnit>
-
-                <p:layoutUnit position="center">
-                    <ui:insert name="content">Content</ui:insert>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
-                </p:layoutUnit>
-
-            </p:layout>
-
+                <hr />
+                <footer>
+                    <p>© 2017 asdfasdfasdf...</p>
+                </footer>
+            </div>
         </h:body>
-
     </f:view>
 </html>
-
-
-
