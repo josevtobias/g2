@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <body>
+        <ui:composition template="./templateTiendaEnLinea.xhtml">
+            <ui:define name="content">
+                <div class="container" >
+                    <div class="row">
+                        <h3 style="font-family: 'Raleway', sans-serif;">Envios Actuales</h3>
+                    </div>
+                    <div class="row">
+                    <div class="four columns"> 
+                        <h4 style="color: #00ccff; font-family: 'Raleway', sans-serif;">#{dashboard.enBodega}</h4>
+                        <h6>Envios en Bodega</h6>
+                    </div>
+                    <div class="four columns"> 
+                        <h4 style="color: #3399ff; font-family: 'Raleway', sans-serif;">#{dashboard.enCamino}</h4>
+                        <h6>Envios en Camino</h6>
+                    </div>
+                    <div class="four columns"> 
+                        <h4 style="color: #036fab; font-family: 'Raleway', sans-serif;">#{dashboard.entregado}</h4>
+                        <h6>Envios Entregados</h6>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="four columns"> 
+                        <h4 style="color: #cc0000; font-family: 'Raleway', sans-serif;">#{dashboard.devolucion}</h4>
+                        <h6>Devoluci&oacute;nes</h6>
+                    </div>
+                    <div class="four columns"> 
+                        <h4 style="color: #00cc00; font-family: 'Raleway', sans-serif;">#{dashboard.totales}</h4>
+                        <h6>Envios Totales</h6>
+                    </div>
+                    </div>
+                    <div class="row"> 
+                        <br/>
+                        <p:chart type="bar" model="#{barra.barModel}" style="height:300px"/>
+                    </div>
+                </div>
+                <f:metadata>
+                    <f:viewAction action="#{dashboard.envios()}" />
+                </f:metadata>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
