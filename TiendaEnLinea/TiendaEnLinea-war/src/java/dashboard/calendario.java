@@ -9,12 +9,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement; 
  
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.primefaces.model.chart.MeterGaugeChartModel;
+
 @ManagedBean (name = "cal")
-public class calendario {
+public class calendario{
     private Date date1;
     private Date date2;
-    private String total;
+    private String total="Total de ventas Q.0.00";
     SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+    private MeterGaugeChartModel meterGaugeModel1;
     
     public Date getDate1() {
         return date1;
@@ -72,12 +79,37 @@ public class calendario {
                     +s.format(date1)+"\'and fecha < \'"
                     +s.format(date2)+"\';");
             rs.first();
-            this.total= "Q."+rs.getString("total");
+            this.total = "Total de ventas Q." + rs.getString("total");
             System.out.println("Listo");
+                createMeterGaugeModels(rs.getInt("total")/100);
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+    
+    /*Metodos para el velocimetro*/
+    @PostConstruct
+    public void init() {
+        createMeterGaugeModels(0);
+    }
+    private void createMeterGaugeModels(int i) {
+        List<Number> intervals = new ArrayList<Number>(){{
+            add(1000);
+            add(2500);
+            add(5000);
+            add(7500);
+            add(10000);
+            
+        }};
+        meterGaugeModel1 = new MeterGaugeChartModel(i, intervals);
+        meterGaugeModel1.setTitle("Ventas Proyectadas");
+        meterGaugeModel1.setGaugeLabel("Q x 100");
+        meterGaugeModel1.setSeriesColors("d83737,d85737,d89c37,a7d837,38d86d");
+    }
+    public MeterGaugeChartModel getMeterGaugeModel1() {
+        return meterGaugeModel1;
+    }
+
 }

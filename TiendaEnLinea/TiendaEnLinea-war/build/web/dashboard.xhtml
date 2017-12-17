@@ -55,13 +55,15 @@
                             <p:calendar id="button1" value="#{cal.date1}" showOn="button"/><br/>
                             <p:outputLabel for="button2" value="Fecha Final:"/>
                             <p:calendar id="button2" value="#{cal.date2}" showOn="button"/><br/>
-                            <p:commandButton value="Buscar" update="display" action="#{cal.cargar()}" style="button-primary"/> <br/>
+                            <p:commandButton value="Buscar" update="display mg" action="#{cal.cargar()}" style="button-primary"/> <br/>
                         </div>
                         </div>
                         <div class="six columns">
                             <h:outputText id="display" value="#{cal.total}" style="font-family: 'Raleway', 
                                           sans-serif; font-size: 24px; 
-                                          color: #3399ff"/>
+                                          color: #3399ff"/> <br/>
+                            <br/>
+                            <p:chart id="mg" type="metergauge" model="#{cal.meterGaugeModel1}" style="width:600px; height:300px" />
                         </div>
                     </div>
                     </h:form>
