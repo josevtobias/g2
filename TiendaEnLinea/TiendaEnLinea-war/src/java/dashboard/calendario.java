@@ -2,19 +2,20 @@ package dashboard;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
- 
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement; 
  
 @ManagedBean (name = "cal")
 public class calendario {
     private Date date1;
     private Date date2;
     private String total;
-
+    SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+    
     public Date getDate1() {
         return date1;
     }
@@ -39,21 +40,44 @@ public class calendario {
         this.total = total;
     }
     
-    public void carga(){
-        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-        this.total= s.format(date1) + " al " +s.format(date2);
+    public void cargar(){
+        cargarDatos();
     }
     
-    public void onDateSelect(SelectEvent event) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    public void cargarDatos(){
+        boolean bandera = false;
+        try{
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            bandera = true;
+        }catch(Exception ex){ 
+            bandera = false;
+        }
+        if (bandera) {
+            System.out.println("Cargando");
+            cargarVentas();
+        } else {
+            System.out.println("Sin Conexion");
+        }
     }
-     
-    public void click() {
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("form:display");
-        requestContext.execute("PF('dlg').show()");
+    void cargarVentas(){
+            try {
+            Connection conn;
+            String c = "jdbc:mysql://192.168.201.128/CRM?";
+            conn = DriverManager.getConnection(c + "user=usuario&password=");
+            Statement st = conn.createStatement();
+            System.out.println("Dato Encontrado");
+            System.out.println(date1.toString());
+            System.out.println(date2.toString());
+            ResultSet rs = st.executeQuery("select sum(monto) as total from venta where fecha > \'"
+                    +s.format(date1)+"\'and fecha < \'"
+                    +s.format(date2)+"\';");
+            rs.first();
+            this.total= "Q."+rs.getString("total");
+            System.out.println("Listo");
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
- 
 }
