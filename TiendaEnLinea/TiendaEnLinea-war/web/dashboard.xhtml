@@ -9,8 +9,9 @@
         <ui:composition template="./templateTiendaEnLinea.xhtml">
             <ui:define name="content">
                 <div class="container" >
+                    <!-- Envios -->
                     <div class="row">
-                        <h3 style="font-family: 'Raleway', sans-serif;">Envios Actuales</h3>
+                        <h4 style="font-family: 'Raleway', sans-serif;">Envios Actuales</h4>
                     </div>
                     <div class="row">
                     <div class="four columns"> 
@@ -28,7 +29,7 @@
                     </div>
                     <div class="row">
                     <div class="four columns"> 
-                        <h4 style="color: #cc0000; font-family: 'Raleway', sans-serif;">#{dashboard.devolucion}</h4>
+                        <h4 style="color: #AFAFAF; font-family: 'Raleway', sans-serif;">#{dashboard.devolucion}</h4>
                         <h6>Devoluci&oacute;nes</h6>
                     </div>
                     <div class="four columns"> 
@@ -36,10 +37,30 @@
                         <h6>Envios Totales</h6>
                     </div>
                     </div>
+                    <!-- Productos mas vendidos -->
                     <div class="row"> 
+                        <h4 style="font-family: 'Raleway', sans-serif;">Productos m&aacute;s vendidos</h4>
                         <br/>
-                        <p:chart type="bar" model="#{barra.barModel}" style="height:300px"/>
+                        <p:chart type="bar" model="#{barra.barModel}" style="align-content: center; height:300px;"/>
                     </div>
+                    <!-- Ventas Mensuales -->
+                    <h:form id="consulta">
+                    <br/>
+                    <div class="row">
+                        <h4 style = "font-family: 'Raleway', sans-serif;"> Ventas </h4>
+                        <h5 style = "font-family: 'Raleway', sans-serif;"> Seleccione el periodo de ventas a buscar </h5>
+                        <div class="row">
+                            <p:outputLabel for="button1" value="Fecha Inicial:"/>
+                            <p:calendar id="button1" value="#{cal.date1}" showOn="button"/><br/>
+                            <p:outputLabel for="button2" value="Fecha Final:"/>
+                            <p:calendar id="button2" value="#{cal.date2}" showOn="button"/><br/>
+                            <p:commandButton value="Buscar" update="display" action="#{cal.carga()}" style="button-primary"/> <br/>
+                            <h:outputText id="display" value="#{cal.total}" style="font-family: 'Raleway', 
+                                          sans-serif; font-size: 24px; 
+                                          color: #3399ff"/>
+                        </div>
+                    </div>
+                    </h:form>
                 </div>
                 <f:metadata>
                     <f:viewAction action="#{dashboard.envios()}" />

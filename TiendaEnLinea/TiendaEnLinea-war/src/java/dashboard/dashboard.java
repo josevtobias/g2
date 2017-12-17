@@ -47,7 +47,6 @@ public class dashboard {
         try{
             String c = "jdbc:mysql://192.168.201.128/CRM?";
             conn = DriverManager.getConnection(c + "user=usuario&password=");
-            System.out.println("-----Conexion Establecida -----");
             Statement st = conn.createStatement();
             //Envios en bodega
             ResultSet rs = st.executeQuery("select count(venta.estado) as e from venta where estado = 0;");
@@ -68,7 +67,6 @@ public class dashboard {
             rs = st.executeQuery("select count(id_venta) as e from venta;");
             rs.first();
             this.totales = rs.getString("e");
-            System.out.println("Dato Encontrado");
             conn.close();
         } catch (SQLException e) {
             System.out.println("+++++++++++++Error+++++++++++++");
