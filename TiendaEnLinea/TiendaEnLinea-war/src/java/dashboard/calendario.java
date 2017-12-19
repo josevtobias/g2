@@ -69,8 +69,9 @@ public class calendario{
     void cargarVentas(){
             try {
             Connection conn;
-            String c = "jdbc:mysql://192.168.201.128/CRM?";
-            conn = DriverManager.getConnection(c + "user=usuario&password=");
+            server se = new server();
+            String c = se.getServer();
+            conn = DriverManager.getConnection(c);
             Statement st = conn.createStatement();
             System.out.println("Dato Encontrado");
             System.out.println(date1.toString());
@@ -81,7 +82,9 @@ public class calendario{
             rs.first();
             this.total = "Total de ventas Q." + rs.getString("total");
             System.out.println("Listo");
-                createMeterGaugeModels(rs.getInt("total")/100);
+            if(!rs.getString("total").equals("null")){
+            createMeterGaugeModels(rs.getInt("total")/100);
+            }
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +107,7 @@ public class calendario{
             
         }};
         meterGaugeModel1 = new MeterGaugeChartModel(i, intervals);
-        meterGaugeModel1.setTitle("Ventas Proyectadas");
+        meterGaugeModel1.setTitle("Indicador de Ventas Proyectadas");
         meterGaugeModel1.setGaugeLabel("Q x 100");
         meterGaugeModel1.setSeriesColors("d83737,d85737,d89c37,a7d837,38d86d");
     }

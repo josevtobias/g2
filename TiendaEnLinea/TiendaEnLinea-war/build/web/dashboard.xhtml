@@ -67,6 +67,19 @@
                         </div>
                     </div>
                     </h:form>
+                    <!-- Tabla -->
+                    <div class="row">
+                        <div class="six columns">
+                            <h:outputText id="htmldoc" value="#{dashboard.tabla}" escape="false"/>
+                            <br/>
+                            <h6>***Se muestra un periodo de tres meses de ventas</h6>
+                        </div>
+                        <div class="six columns">
+                            <h:outputText id="htmldoc2" value="#{dashboard.visitas}" escape="false"/>
+                            <br/>
+                            <h6>***Productos más visitados</h6>
+                        </div>
+                    </div>
                 </div>
                 <f:metadata>
                     <f:viewAction action="#{dashboard.envios()}" />

@@ -72,8 +72,9 @@ public class chart implements Serializable{
     void carga(){
         try {
             Connection conn;
-            String c = "jdbc:mysql://192.168.201.128/CRM?";
-            conn = DriverManager.getConnection(c + "user=usuario&password=");
+            server s = new server();
+            String c = s.getServer();
+            conn = DriverManager.getConnection(c);
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select producto.nombre, resultados.can\n" +
                     "from (select id_producto, sum(cantidad) as can from detalle_venta group by id_producto order by can desc) as resultados\n" +
