@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateTiendaEnLinea.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <br />
+        <h2 class="text-success text-center">Historial de Compras</h2>
+        <div id="accordion">
+            <ui:repeat var="venta" value="#{beanSessionUsuario.historialCompras}" >
+                <h3>#{venta[2]}</h3>
+                <div>
+                    <div class="row">
+                        <p class="lead text-info">
+                            Factura Por: Q#{venta[3]}<br />
+                            Descuento Aplicado: %#{venta[9]} <br />
+                            GiftCard: #{venta[6]}<br />
+                            <a href="http://encuestas/ReportesEncuestas?id_venta=#{venta[0]}" class="text-success">Llenar encuesta.</a>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <ui:repeat var="item" value="#{beanSessionUsuario.getDetalleVenta(venta)}" >
+                            <div class="item  col-xs-4 col-lg-4 list-group-item">
+                                <div class="thumbnail">
+                                    <h:graphicImage url="img/#{item[5]}.jpg" class="group list-group-image" style="max-height: 250px; max-width: 400px;" />
+                                    <div class="caption">
+                                        <h4 class="group inner list-group-item-heading">
+                                            <h:outputText value="#{item[6]}" />
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6">
+                                                <p class="lead">
+                                                    Costo Unitario: Q#{item[8]}
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-md-6">
+                                                <p class="lead">
+                                                    Cantidad: #{item[7]}
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-md-6">
+                                                <p class="lead">
+                                                    Total: #{beanSessionUsuario.calcularDetalleVentaCosto(item)}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </ui:repeat>
+        </div>
+        <h:outputScript name="js/jquery-3.1.0.min.js" />
+        <h:outputScript name="js/jquery-ui.min.js" />
+        <script>
+            $(function () {
+                $("#accordion").accordion({
+                    heightStyle: "content"
+                });
+            });
+        </script>
+    </ui:define>
+
+</ui:composition>

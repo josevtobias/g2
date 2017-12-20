@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateTiendaEnLinea.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <h3 class="text-success">Resumen del carrito de compras: #{beanSessionUsuario.productosEnCarrito.size()} productos seleccionados.</h3>
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />
+            <div id="products" class="row list-group">
+                <ui:repeat var="item" value="#{beanSessionUsuario.productosEnCarrito}" >
+                    <div class="item  col-xs-4 col-lg-4 list-group-item">
+                        <div class="thumbnail">
+                            <h:commandLink action="#{beanSessionUsuario.verProductoDetalle(item)}">
+                                <h:graphicImage url="img/#{item.id_producto}.jpg" class="group list-group-image" style="max-height: 250px; max-width: 400px;" />
+                            </h:commandLink>
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    <h:commandLink action="#{beanSessionUsuario.verProductoDetalle(item)}">
+                                        <h:outputText value="#{item.nombre}" />
+                                    </h:commandLink>
+                                </h4>
+                                <p class="group inner list-group-item-text">
+                                    Product description:#{item.descripcion}.</p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead">
+                                            Q#{item.precio}</p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        Cantidad:<p:inputText value="#{item.cantidad}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+            <h:commandButton class="btn btn-success" value="Comprar" action="#{beanSessionUsuario.comprar()}" />
+            <div class="pull-right">
+                Código de GiftCard:<p:inputText value="#{beanSessionUsuario.codigoGiftCard}" />
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

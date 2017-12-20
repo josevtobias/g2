@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateTiendaEnLinea.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <h2 class="text-success" style="text-align: center;">Compra realizada con éxito</h2>
+        <h3 class="text-info" style="text-align: center;">
+            <a href="http://encuestas/ReportesEncuestas?id_venta=#{beanSessionUsuario.idUltimaVenta}">Por favor, llene la siguiente encuesta sobre el servicio brindado.</a>
+        </h3>
+        
+    </ui:define>
+
+</ui:composition>

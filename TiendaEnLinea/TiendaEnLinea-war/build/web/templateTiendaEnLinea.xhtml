@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Tienda en L&iacute;nea</title>
+            </f:facet>
+            <!-- Le styles -->
+            <h:outputStylesheet name="css/normalize.css" />
+            <h:outputStylesheet name="css/skeleton.css" />
+            <h:outputStylesheet name="css/bootstrap.min.css" />
+            <h:outputStylesheet name="css/bootstrap-theme.min.css" />
+            <h:outputStylesheet name="css/jquery-ui.min.css" />
+            <h:outputStylesheet name="css/jquery-ui.structure.min.css" />
+            <h:outputStylesheet name="css/jquery-ui.theme.min.css" />
+            <h:outputStylesheet name="css/style.css" />
+            <!-- Scripts -->
+            <!--h:outputScript name="js/jquery-3.1.0.min.js" /-->
+            <h:outputScript name="js/bootstrap.min.js" />
+            <!--h:outputScript name="js/jquery-ui.min.js" /-->
+        </h:head>
+        <h:body>
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h:link outcome="index">
+                            <h:graphicImage name="img/zf-logo-mark.svg" style="max-height: 30px;" />
+                        </h:link>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="">
+                            <h:link outcome="index" value="Inicio" />
+                            </li>
+                            <li class="">
+                            <h:link outcome="carrito_compras" value="Carrito de Compras" />
+                            </li>
+                            <li class="#{beanSessionUsuario.renderizarAutenticado()}">
+                            <h:link outcome="historial" value="Historial de Compras" />
+                            </li>
+                            <li class="#{beanSessionUsuario.renderizarNoAutenticado()}">
+                            <h:link outcome="login" value="Ingresar" />
+                            </li>
+                            <li class="#{beanSessionUsuario.renderizarAutenticado()}">
+                            <h:form style="margin: 0; padding-top: 15px; color: red;">
+                                <h:commandLink action="#{beanSessionUsuario.logout()}" value="Salir" />
+                            </h:form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container">
+                <ui:insert name="content">Content</ui:insert>
+
+                <hr />
+                <footer>
+                    <p>© 2017 asdfasdfasdf...</p>
+                </footer>
+            </div>
+        </h:body>
+    </f:view>
+</html>
